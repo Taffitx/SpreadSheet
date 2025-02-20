@@ -84,6 +84,45 @@
 ./spreadsheet
 ```
 
+## Пример использования
+
+```cpp
+auto sheet = CreateSheet();
+
+// Установка значений в ячейки
+sheet->SetCell("A1"_pos, "5");
+sheet->SetCell("A2"_pos, "10"); 
+sheet->SetCell("B1"_pos, "15");
+sheet->SetCell("B2"_pos, "20");
+
+// Создание формул
+sheet->SetCell("A3"_pos, "=A1 + A2");  // Сумма столбца A
+sheet->SetCell("B3"_pos, "=B1 + B2");  // Сумма столбца B
+sheet->SetCell("C1"_pos, "=A1 + B1");  // Сумма строки 1
+sheet->SetCell("C2"_pos, "=A2 + B2");  // Сумма строки 2
+sheet->SetCell("C3"_pos, "=A3 + B3");  // Общая сумма
+
+// Вывод результатов
+std::cout << "\nSpreadsheet Values:\n";
+sheet->PrintValues(std::cout);
+
+std::cout << "\nSpreadsheet Formulas:\n"; 
+sheet->PrintTexts(std::cout);
+```
+
+Результат выполнения:
+```
+Spreadsheet Values:
+5    15    20
+10   20    30
+15   35    50
+
+Spreadsheet Formulas:
+ 5      15    =A1+B1
+ 10     20    =A2+B2
+=A1+A2 =B1+B2 =A3+B3
+```
+
 ## Инструменты разработки
 - Язык программирования: C++17
 - Сборка: CMake 3.8+
